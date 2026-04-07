@@ -28,7 +28,11 @@ TravelBuddy đang suy nghĩ...
 Gọi tool: search_flights({'origin': 'Hà Nội', 'destination': 'Đà Nẵng'})
 Trả lời trực tiếp
 
-TravelBuddy: Mình đã tìm được 4 chuyến bay từ Hà Nội đi Đà Nẵng...
+TravelBuddy: Mình đã tìm được 4 chuyến bay từ Hà Nội đi Đà Nẵng
+1. Vietnam Airlines | 06:00-07:20 | economy | 1.450.000đ
+2. Vietnam Airlines | 14:00-15:20 | business | 2.800.000đ
+3. VietJet Air | 08:30-09:50 | economy | 890.000đ
+4. Bamboo Airways | 11:00-12:20 | economy | 1.200.000đ
 ```
 
 ## Test 3 - Multi-Step Tool Chaining
