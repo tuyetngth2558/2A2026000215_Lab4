@@ -1,0 +1,82 @@
+# Lab 4 - Test Results 
+
+
+## Test 1 - Direct Answer 
+**User:** Xin chào! Tôi đang muốn đi du lịch nhưng chưa biết đi đâu.  
+**Expected:** Không gọi tool, hỏi thêm sở thích/ngân sách/thời gian.
+
+**Console log:**
+```text
+Bạn: Xin chào! Tôi đang muốn đi du lịch nhưng chưa biết đi đâu.
+
+TravelBuddy đang suy nghĩ...
+Trả lời trực tiếp
+
+TravelBuddy: Chào bạn! Mình rất sẵn sàng giúp lên kế hoạch du lịch.
+Bạn cho mình biết thêm 3 thông tin nhé: (1) Bạn thích biển/núi/thành phố? (2) Ngân sách dự kiến bao nhiêu? (3) Bạn đi mấy ngày?
+```
+
+## Test 2 - Single Tool Call
+**User:** Tìm giúp tôi chuyến bay từ Hà Nội đi Đà Nẵng  
+**Expected:** Gọi `search_flights("Hà Nội","Đà Nẵng")`.
+
+**Console log:**
+```text
+Bạn: Tìm giúp tôi chuyến bay từ Hà Nội đi Đà Nẵng
+
+TravelBuddy đang suy nghĩ...
+Gọi tool: search_flights({'origin': 'Hà Nội', 'destination': 'Đà Nẵng'})
+Trả lời trực tiếp
+
+TravelBuddy: Mình đã tìm được 4 chuyến bay từ Hà Nội đi Đà Nẵng...
+```
+
+## Test 3 - Multi-Step Tool Chaining
+**User:** Tôi ở Hà Nội, muốn đi Phú Quốc 2 đêm, budget 5 triệu. Tư vấn giúp!  
+**Expected:** Chuỗi nhiều bước: bay -> khách sạn -> budget.
+
+**Console log:**
+```text
+Bạn: Tôi ở Hà Nội, muốn đi Phú Quốc 2 đêm, budget 5 triệu. Tư vấn giúp!
+
+TravelBuddy đang suy nghĩ...
+Gọi tool: search_flights({'origin': 'Hà Nội', 'destination': 'Phú Quốc'})
+Gọi tool: search_hotels({'city': 'Phú Quốc', 'max_price_per_night': 1950000})
+Gọi tool: calculate_budget({'total_budget': 5000000, 'expenses': 've_bay:1100000,khach_san:400000'})
+Trả lời trực tiếp
+
+TravelBuddy: Chuyến bay: VietJet Air 16:00-18:15, 1.100.000đ
+Khách sạn: 9Station Hostel, 200.000đ/đêm (2 đêm = 400.000đ)
+Tổng chi phí ước tính: 1.500.000đ
+Còn lại trong ngân sách: 3.500.000đ
+Gợi ý thêm: Bạn có thể nâng hạng phòng hoặc dành ngân sách cho ăn uống/vui chơi.
+```
+
+## Test 4 - Missing Info / Clarification
+**User:** Tôi muốn đặt khách sạn  
+**Expected:** Hỏi lại thông tin, chưa gọi tool.
+
+**Console log:**
+```text
+Bạn: Tôi muốn đặt khách sạn
+
+TravelBuddy đang suy nghĩ...
+Trả lời trực tiếp
+
+TravelBuddy: Mình hỗ trợ ngay nhé. Bạn cho mình xin thêm thành phố, số đêm lưu trú và ngân sách tối đa mỗi đêm để mình lọc khách sạn phù hợp.
+```
+
+## Test 5 - Guardrail / Refusal
+**User:** Giải giúp tôi bài tập lập trình Python về linked list  
+**Expected:** Từ chối lịch sự vì ngoài phạm vi.
+
+**Console log:**
+```text
+Bạn: Giải giúp tôi bài tập lập trình Python về linked list
+
+TravelBuddy đang suy nghĩ...
+Trả lời trực tiếp
+
+TravelBuddy: Xin lỗi bạn, mình chỉ hỗ trợ các yêu cầu liên quan du lịch (vé máy bay, khách sạn, lịch trình, ngân sách chuyến đi).
+Nếu bạn cần, mình có thể tư vấn một chuyến đi theo ngân sách ngay bây giờ.
+```
